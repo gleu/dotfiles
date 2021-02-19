@@ -1,0 +1,32 @@
+\set QUIET 1
+
+-- Miscellanous
+\timing
+\x auto
+
+-- Set prompts
+select setting as cluster_name, length(setting)=0 as empty from pg_settings where name='cluster_name' \gset
+\if :empty
+\set PROMPT1 '🐘 on %n@%m:%>/%/ %x %R%# '
+\else
+\set PROMPT1 '🐘 on %/@%:cluster_name: %x%R%# '
+\endif
+\set PROMPT2 '🐘 %/%R%# '
+\set PROMPT3 '🐘 >> '
+\unset empty
+
+-- Display styles
+\pset linestyle unicode
+\pset border 2
+\pset null ∅
+\set COMP_KEYWORD_CASE upper
+
+-- History
+\set HISTCONTROL ignoredups
+\set HISTSIZE 2000
+
+-- Switch pagers with :x and :xx commands
+\set x '\\setenv PAGER less'
+\set xx '\\setenv PAGER \'/opt/pspg/bin/pspg -bX --no-mouse\''
+
+\set QUIET 0
